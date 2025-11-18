@@ -1,0 +1,32 @@
+name: ESLint
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  lint:
+    name: Run ESLint
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20' # Matches your Dockerfile version
+          cache: 'npm'       # Automatically caches node_modules
+
+      - name: Install Dependencies
+        # 'npm ci' is faster and cleaner than 'npm install' for CI environments
+        run: npm ci
+
+      - name: Run Linting
+        # This expects a "lint" script in your package.json
+        run: npm run lint

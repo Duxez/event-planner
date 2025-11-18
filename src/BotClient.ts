@@ -1,9 +1,9 @@
-import { Client, Collection, GatewayIntentBits } from "discord.js";
-import type { SlashCommand } from "./types/SlashCommand.js";
-import path, { dirname } from "path";
-import fs from "fs";
-import { fileURLToPath } from "url";
-import { MikroORM } from "@mikro-orm/mariadb";
+import { Client, Collection, GatewayIntentBits } from 'discord.js';
+import type { SlashCommand } from './types/SlashCommand.js';
+import path, { dirname } from 'path';
+import fs from 'fs';
+import { fileURLToPath } from 'url';
+import { MikroORM } from '@mikro-orm/mariadb';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);

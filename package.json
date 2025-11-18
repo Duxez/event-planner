@@ -10,7 +10,8 @@
         "test": "echo \"Error: no test specified\" && exit 1",
         "build": "tsc -p .",
         "start": "node --env-file=.env ./dist/index.js",
-        "deploy": "node --env-file=.env ./dist/deploy.js"
+        "deploy": "node --env-file=.env ./dist/deploy.js",
+        "lint": "eslint ."
     },
     "devDependencies": {
         "@types/node": "^24.10.1",
