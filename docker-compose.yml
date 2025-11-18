@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  discord-bot:
+    build: .
+    container_name: event-planner-bot
+    restart: unless-stopped
+    depends_on:
+      - db
+
+    environment:
+      - DB_HOST=db
+      - DB_USER=${DISCORD_BOT_DB_USER}
+      - DB_PASSWORD=${DISCORD_BOT_DB_PASSWORD}
+      - DB_NAME=event-planner
+
+  db:
+    image: mariadb
+    restart: always
+    environment:
+      MARIADB_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD}
+      MARIADB_DATABASE: event-planner
+      MARIADB_USER: ${DISCORD_BOT_DB_USER}
+      MARIADB_PASSWORD: ${DISCORD_BOT_DB_PASSWORD}
+
+    volumes:
+      - db_data:/var/lib/mysql
+
+volumes:
+  db_data:
