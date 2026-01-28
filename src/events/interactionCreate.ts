@@ -1,12 +1,17 @@
 import { Events, type Interaction } from "discord.js";
 import type BotClient from "../BotClient.js";
+import CreateEventModal from "../modals/CreateEventModal.js";
+import CreateEventHandler from "../handlers/CreateEventHandler.js";
 
 export default {
     name: Events.InteractionCreate,
     once: false,
 
     async execute(interaction: Interaction, client: BotClient) {
-        if (!interaction.isChatInputCommand()) return;
+        if (!interaction.isChatInputCommand()) {
+            this.handleModal(interaction, client);
+            return;
+        }
 
         const command = client.commands.get(interaction.commandName);
 
@@ -31,4 +36,16 @@ export default {
             }
         }
     },
+
+    async handleModal(interaction: Interaction, client: BotClient) {
+        if (!interaction.isModalSubmit()) return;
+
+        const modalId = interaction.customId;
+
+        switch (modalId.split('_')[0]) {
+            case 'create':
+                CreateEventHandler.handle(interaction);
+                break;
+        }
+    }
 }
